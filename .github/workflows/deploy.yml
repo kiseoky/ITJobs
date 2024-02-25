@@ -21,8 +21,7 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: 'google-github-actions/auth@v2'
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          workload_identity_provider: ${{ secrets.GCP_JSON_KEY }}
+          credentials_json: ${{ secrets.GCP_JSON_KEY }}
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
