@@ -117,7 +117,7 @@ class PostingServiceTest {
         Posting updatedPost = postingService.update(post.getId(), postingUpdateDTO);
 
         // then
-        Assertions.assertThat(updatedPost.getTitle()).isEqualTo("updated");
+        Assertions.assertThat(updatedPost.getTitle()).isEqualTo("updated title");
         Assertions.assertThat(updatedPost.getContent()).isEqualTo("updated content");
     }
 }
