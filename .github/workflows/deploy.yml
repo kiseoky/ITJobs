@@ -30,7 +30,7 @@ jobs:
       - name: Build and upload artifacts
         run: |
           ./gradlew build
-          gsutil cp -r dist gs://$GCS_BUCKET_NAME
+          gsutil cp -r build gs://$GCS_BUCKET_NAME
 
         env:
           GCS_BUCKET_NAME: 'itjobs-bucket'
