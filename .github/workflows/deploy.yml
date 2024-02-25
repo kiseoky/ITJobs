@@ -1,0 +1,37 @@
+name: Deploy to GCP Instance Group
+
+on:
+  workflow_run:
+    workflows: [ "integration" ]
+    branches: [ "main" ]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Build and upload artifacts
+        run: |
+          ./gradlew bootRun
+
+        env:
+          GCS_BUCKET_NAME: 'itjobs-bucket'
+
+      - name: Deploy to GCP
+        run: |
+          gcloud compute instance-groups managed rolling-action start-update $INSTANCE_GROUP_NAME --version template=$INSTANCE_TEMPLATE_NAME --zone $ZONE
+        env:
+          INSTANCE_GROUP_NAME: 'instance-group-2'
+          INSTANCE_TEMPLATE_NAME: 'instance-template-20240225-082602'
+          ZONE: 'asia-northeast3-a'
