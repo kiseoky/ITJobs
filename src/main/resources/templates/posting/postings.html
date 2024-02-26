@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>IT Jobs</title>
+</head>
+<body>
+<table>
+    <tr th:each="posting:${postings}">
+        <td th:text="${posting.title}">Title</td>
+        <td th:text="${posting.dDay}">D-day</td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -3,24 +3,27 @@ package com.kiseoky.itjobs.posting;
 import com.kiseoky.itjobs.posting.dto.PostingCreateDTO;
 import com.kiseoky.itjobs.posting.dto.PostingUpdateDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/posting")
+@RequestMapping("/postings")
 @RequiredArgsConstructor
+@Slf4j
 public class PostingController {
     private final PostingService postingService;
 
 
-    @GetMapping()
+    @GetMapping
     public String postings(Model model) {
         model.addAttribute("postings", postingService.getPostings());
-        return "postings";
+        log.info("postings: {}", postingService.getPostings());
+        return "posting/postings";
     }
 
-    @PostMapping()
+    @PostMapping
     public String post(@RequestBody PostingCreateDTO posting) {
         Posting post = postingService.post(posting);
         return "redirect:/posting/" + post.getId();
