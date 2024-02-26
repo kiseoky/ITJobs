@@ -26,6 +26,10 @@ public class Posting {
     @ManyToOne(fetch = FetchType.LAZY)
     private User writer;
 
+    public Long getRemainDay() {
+        return (endDate.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000);
+    }
+
     public Posting update(PostingUpdateDTO postingUpdateDTO) {
         this.title = postingUpdateDTO.getTitle();
         this.content = postingUpdateDTO.getContent();

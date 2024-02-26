@@ -36,7 +36,8 @@ public class PostingRepository {
     }
 
     public List<Posting> findAll() {
-        return em.createQuery("select p from Posting p", Posting.class)
+        List<Posting> all = em.createQuery("select p from Posting p", Posting.class)
                 .getResultList();
+        return all;
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>IT Jobs</title>
+</head>
+<body>
+
+<h1 th:text="${posting.title}">Title</h1>
+<p th:text="${posting.content}">Content</p>
+<p th:text="${posting.startDate}">Start Date</p>
+<p th:text="${posting.endDate}">End Date</p>
+
+<button th:onclick="|location.href='@{/postings}'|" type="button">목록</button>
+
+</body>
+</html>

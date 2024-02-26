@@ -1,6 +1,7 @@
 package com.kiseoky.itjobs.posting.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,9 +12,14 @@ import java.util.Date;
 public class PostingCreateDTO {
     private String title;
     private String content;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    public PostingCreateDTO() {
+    }
+    
     public PostingCreateDTO(String title, String content, String startDate, String endDate) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.title = title;

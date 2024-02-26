@@ -19,9 +19,20 @@ public class PostingController {
     @GetMapping
     public String postings(Model model) {
         model.addAttribute("postings", postingService.getPostings());
-        log.info("postings: {}", postingService.getPostings());
         return "posting/postings";
     }
+
+    @GetMapping("/new")
+    public String createForm() {
+        return "posting/createForm";
+    }
+
+    @PostMapping("/new")
+    public String create(PostingCreateDTO postingCreateDTO) {
+        Posting post = postingService.post(postingCreateDTO);
+        return "redirect:/postings/" + post.getId();
+    }
+
 
     @PostMapping
     public String post(@RequestBody PostingCreateDTO posting) {
@@ -31,8 +42,8 @@ public class PostingController {
 
     @GetMapping("/{id}")
     public String posting(@PathVariable Long id, Model model) {
-        model.addAttribute("posting", postingService.getPosting(id));
-        return "posting";
+        model.addAttribute("posting", postingService.getPosting(id).get());
+        return "posting/posting";
     }
 
     @PatchMapping("/{id}")
