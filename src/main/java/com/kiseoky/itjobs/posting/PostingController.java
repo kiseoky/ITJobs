@@ -8,30 +8,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/posting")
 @RequiredArgsConstructor
 public class PostingController {
     private final PostingService postingService;
 
 
-    @GetMapping("/posting")
+    @GetMapping()
     public String postings(Model model) {
         model.addAttribute("postings", postingService.getPostings());
         return "postings";
     }
 
-    @PostMapping("/posting")
+    @PostMapping()
     public String post(@RequestBody PostingCreateDTO posting) {
         Posting post = postingService.post(posting);
         return "redirect:/posting/" + post.getId();
     }
 
-    @GetMapping("/posting/{id}")
+    @GetMapping("/{id}")
     public String posting(@PathVariable Long id, Model model) {
         model.addAttribute("posting", postingService.getPosting(id));
         return "posting";
     }
 
-    @PatchMapping("/posting/{id}")
+    @PatchMapping("/{id}")
     public String updatePosting(@PathVariable Long id, @RequestBody PostingUpdateDTO postingUpdateDTO) {
         postingService.update(id, postingUpdateDTO);
         return "redirect:/posting/" + id;
