@@ -30,6 +30,7 @@ public class PostingController {
     @PostMapping("/new")
     public String create(PostingCreateDTO postingCreateDTO) {
         Posting post = postingService.post(postingCreateDTO);
+
         return "redirect:/postings/" + post.getId();
     }
 

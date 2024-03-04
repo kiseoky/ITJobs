@@ -2,6 +2,7 @@ package com.kiseoky.itjobs.posting;
 
 import com.kiseoky.itjobs.posting.dto.PostingCreateDTO;
 import com.kiseoky.itjobs.posting.dto.PostingUpdateDTO;
+import com.kiseoky.itjobs.question.QuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,13 @@ import java.util.Optional;
 @Slf4j
 public class PostingService {
     private final PostingRepository postingRepository;
+    private final QuestionService questionService;
 
     public Posting post(PostingCreateDTO posting) {
-        return postingRepository.save(posting);
+        Posting saved = postingRepository.save(posting);
+        questionService.saveQuestions(posting.getQuestions(), saved);
+
+        return saved;
     }
 
     public void delete(Long id) {

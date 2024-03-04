@@ -2,11 +2,14 @@ package com.kiseoky.itjobs.posting;
 
 import com.kiseoky.itjobs.posting.dto.PostingCreateDTO;
 import com.kiseoky.itjobs.posting.dto.PostingUpdateDTO;
+import com.kiseoky.itjobs.question.Question;
 import com.kiseoky.itjobs.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +28,9 @@ public class Posting {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User writer;
+
+    @OneToMany(mappedBy = "posting", fetch = FetchType.LAZY)
+    private List<Question> questions = new ArrayList<>();
 
     public Long getRemainDay() {
         return (endDate.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000);

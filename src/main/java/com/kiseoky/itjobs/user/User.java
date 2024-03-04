@@ -3,6 +3,7 @@ package com.kiseoky.itjobs.user;
 import com.kiseoky.itjobs.posting.Posting;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,5 +17,5 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "writer")
-    private List<Posting> postings;
+    private List<Posting> postings = new ArrayList<>();
 }
